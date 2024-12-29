@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>News App</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+
+<form action="/search" method="get">
+    <input type="text" name="keyword" placeholder="Search news">
+    <button type="submit">Search</button>
+</form>
+
+<h1>News</h1>
+<ul>
+    <li th:each="news : ${news}">
+        <a th:href="'/news/' + ${news.id}" th:text="${news.title}"></a>
+        <div th:if="${isAdmin}">
+            <form th:action="@{/admin/deleteNews/{id}(id=${news.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    </li>
+</ul>
+<h1>Categories</h1>
+<ul>
+    <li th:each="category : ${categories}">
+        <a th:href="'/news/category/' + ${category.id}" th:text="${category.name}"></a>
+        <div th:if="${isAdmin}">
+            <form th:action="@{/admin/deleteCategory/{id}(id=${category.id})}" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+    </li>
+</ul>
+<div th:if="${isAdmin}">
+    <div><a th:href="@{/admin/createForm(formType='category')}" class="add-button">Add Category</a></div>
+    <div><a th:href="@{/admin/createForm(formType='news')}" class="add-button">Add News</a></div>
+</div>
+<form th:action="@{/changeStatus}" method="get">
+    <button type="submit">Change status</button>
+</form>
+</body>
+</html>

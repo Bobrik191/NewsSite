@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>News</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1>News Details</h1>
+
+<div th:if="${news}">
+    <h2 th:text="${news.title}"></h2>
+    <p th:text="${news.content}"></p>
+    <p th:text="${news.date}"></p>
+    <a th:href="'/news/category/' + ${news.category.id}" th:text="${news.category.name}"></a>
+</div>
+<a th:href="@{/}" class="back-link">Back to News</a>
+</body>
+</html>
